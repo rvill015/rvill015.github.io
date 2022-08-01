@@ -1,0 +1,159 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Dream Library API",
+    "description": "An API of books that would be cool to read.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Dream Library API",
+      "url": "https://api.dreamlibraryapi.org/"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "paths": {
+    "/books/{bookId}": {
+      "get": {
+        "summary": "Find book by ID.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/bookId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "title": "book not found",
+                  "type": "string",
+                  "example": "Not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "externalDocs": {
+    "description": "README",
+    "url": "https://github.com/typicode/json-server"
+  },
+  "components": {
+    "parameters": {
+      "bookId": {
+        "name": "bookId",
+        "in": "path",
+        "description": "the value for the book you want to look up",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "200": {
+        "title": "Successful response",
+        "type": "object",
+        "properties": {
+          "books": {
+            "$ref": "#/components/schemas/books"
+          }
+        }
+      },
+      "books": {
+        "title": "books",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "book ID",
+            "example": "0"
+          },
+          "title": {
+            "type": "string",
+            "description": "book title",
+            "example": "The Blade Itself"
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "book authors",
+            "example": [
+              "Joe Abercrombie"
+            ]
+          },
+          "series": {
+            "type": "boolean",
+            "description": "whether book is part of series or not",
+            "example": true
+          },
+          "genre": {
+            "type": "string",
+            "description": "book genre",
+            "example": "fantasy"
+          },
+          "language": {
+            "type": "string",
+            "description": "book language",
+            "example": "English"
+          },
+          "country": {
+            "type": "string",
+            "description": "book country",
+            "example": "United Kingdom"
+          },
+          "publishers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "book publishers",
+            "example": [
+              "Gollancz",
+              "Orbit Books"
+            ]
+          },
+          "publication date": {
+            "type": "integer",
+            "description": "book publication date",
+            "example": "2006"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://my-dream-library-api.herokuapp.com/",
+      "description": "Production server"
+    }
+  ]
+}
